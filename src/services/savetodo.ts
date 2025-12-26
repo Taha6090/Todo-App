@@ -1,20 +1,22 @@
+import { toast } from "sonner";
 import type { Todo } from "../common/types/todo"
-
+import { loadFromStorage, saveToStorage } from "../utils/storage";
 
 
 const saveTodo = (todo: Todo) => {
-    const todoList: any = localStorage.getItem("todo")
+    const todoList = loadFromStorage<Todo[]>("todo") ?? [];
 
-    if (todoList) {
-        const list: Todo[] = JSON.parse(todoList);
-        list.push(todo);
-        localStorage.setItem("todo", JSON.stringify(list))
-    }
-    else {
-        const list: Todo[] = [];
-        list.push(todo);
-        localStorage.setItem("todo", JSON.stringify(list))
-    }
+    const updatedList = [...todoList, todo];
+
+    saveToStorage("todo", updatedList);
+    toast("Todo Created", {
+        description: String(new Date(todo.id)),
+        // action: {
+        //     label: "Undo",
+        //     onClick: () => console.log("Undo"),
+        // },
+    })
+
 }
 
 export default saveTodo;

@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, type Dispatch, type SetStateAction } from 'react'
 import type { Todo } from '../../common/types/todo';
 import saveTodo from '../../services/savetodo';
+import { Input } from '../ui/input';
+import { Button } from '../ui/button';
 
-const Addtodoform = () => {
+const Addtodoform = ({ updateList }: { updateList: Dispatch<SetStateAction<boolean>>}) => {
 
 
     const [text, setText] = useState<string>('')
@@ -16,16 +18,32 @@ const Addtodoform = () => {
         }
         // console.log(todo);
         saveTodo(todo);
+        updateList(prev => !prev)
     }
 
 
     return (
-        <div>
-            <form onSubmit={handleform}>
-                <input onChange={(e: React.ChangeEvent<HTMLInputElement>) => setText(e.target.value)} type="text" name="" id="" value={text} />
-                <button type='submit'>Add</button>
+        <div className="flex justify-center mt-6">
+            <form
+                onSubmit={handleform}
+                className="flex items-center gap-3 bg-white p-4 rounded-xl shadow-md border w-full max-w-md"
+            >
+                <Input
+                    placeholder="Add a task..."
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setText(e.target.value)
+                    }
+                    type="text"
+                    value={text}
+                    className="flex-1"
+                />
+
+                <Button type="submit" className="px-5">
+                    Add
+                </Button>
             </form>
         </div>
+
     )
 }
 
