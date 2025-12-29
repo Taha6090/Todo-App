@@ -1,8 +1,9 @@
 import React, { useState, type Dispatch, type SetStateAction } from 'react'
 import type { Todo } from '../../common/types/todo';
-import saveTodo from '../../services/savetodo';
+// import saveTodo from '../../services/todo';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
+import { saveTodo } from '@/services/todo';
 
 const Addtodoform = ({ updateList }: { updateList: Dispatch<SetStateAction<boolean>>}) => {
 

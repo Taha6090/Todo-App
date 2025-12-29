@@ -4,6 +4,7 @@ import './App.css'
 import Home from './app/home/page'
 import { Toaster } from 'sonner'
 
+
 function App() {
   const [count, setCount] = useState(0)
 
@@ -11,7 +12,7 @@ function App() {
     <>
     <Home/>
      <Toaster />
-    </>
+     </>
   )
 }
 
